@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blockly</title>
+</head>
+<body>
+<div class="w3-container">
+<h1>Lập trình block cho ESP32</h1>
+	<h2>I. Ứng dụng: BIPES</h2>
+	<h3>Nguồn</h3>
+		https://github.com/BIPES/BIPES
+	<h3>Cách chạy</h3>
+		- Clone về máy rồi chạy offline từ file (mở bằng browser): ui/index_offline.html
+		- Tạo online bằng cách tạo server để host project
+	
+	<h2>II. Thử nghiệm</h2>
+	<h3>Chip: ESP8266</h3>
+		Kit: Module NODEMCU WIFI ESP8266 OLED NODEMCU 0.96 inch. Nguồn: chotroihn.vn -> PVX80329. (Nhiều nơi dừng kinh doanh)
+		<img src="images/000_BIPES.png" style="width:50%;"/>
+	<h3>Cách kết nối</h3>
+	<h4>Qua RS232 (USB)</h4>
+		Chọn Serial -> OK
+	<h4>Qua Wifi</h4>
+		<li>Sửa file boot.py như sau:</li>
+		<div class="w3-panel w3-card w3-light-grey">
+		<div class="w3-code notranslate" style="white-space:pre-wrap;">
+	# This file is executed on every boot (including wake-boot from deepsleep)
+	#import esp
+	#esp.osdebug(None)
+	import os, machine
+	#os.dupterm(None, 1) # disable REPL on UART(0)
+	import gc
+	import network
+	import time
+	import webrepl
+	
+	def wifi_connect(ssid, pw):
+		wait_time = 0
+		wlan = network.WLAN(network.STA_IF)
+		wlan.active(True)
+		wlan.connect(ssid, pw)
+		while not wlan.isconnected():
+			time.sleep_ms(100)
+			wait_time += 100
+			if wait_time > 10000: return False
+		return True
+	
+	if wifi_connect("LOVE U", "1234567890"):
+		import webrepl_setup
+		webrepl.start()
+	
+	gc.collect()
+		</div>
+		</div>
+		<li>Khởi động lại vđk bằng cách đánh lệnh: import boot ở shell</li>
+		<li>Làm theo hướng dẫn</li>
+		<li>Comment dòng lệnh: <code>#import webrepl_setup</code></li>
+		<li>Vào Tool->Options->Interpreter->Nhập địa chỉ hiện ra trước đó và password đã dùng</li>
+
+	<h2>Vấn đề:</h2>
+	- BIPES bị lỗi kết nối màn hình OLED 0.96
+	
+	<h2>TODO:</h2>
+	<li> Thử nghiệm với ESP32</li>
+	<li> Tạo block</li>
+	<li> Chức năng khoá block theo bài học?</li>
+	<li> Đổi màu giao diện?</li>
+	<li> Dịch?</li>
+</div>
+</body>
+</html>
