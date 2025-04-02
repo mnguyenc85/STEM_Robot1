@@ -1,0 +1,45 @@
+# Gitignore cho Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.egg
+.DS_Store
+.env
+.venv/
+
+# Gitignore cho Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+.env
+.DS_Store
+
+# Gitignore cho C/C++
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.out
+*.class
+.DS_Store
+.vscode/
+.idea/
+
+# Các file log và temp
+logs/
+*.log
+*.out
+*.pid
+debug.log
+
+# Thư mục build/output
+build/
+dist/
+out/
+coverage/
