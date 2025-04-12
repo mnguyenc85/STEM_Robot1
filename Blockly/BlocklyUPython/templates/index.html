@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Blockly Python</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/mat-symbols/symbols.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mycss.css') }}">
+
+    <script src="{{ url_for('static', filename='assets/blockly-11.2.2/blockly_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/blockly-11.2.2/blocks_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/blockly-11.2.2/python_compressed.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/custom_blocks.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/custom_generators.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/highlight/styles/github.min.css') }}">
+    <script src="{{ url_for('static', filename='assets/highlight/highlight.min.js') }}"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="w3-bar w3-light-gray">
+        <a class="w3-bar-item w3-button w3-hover-none">uPython</a>
+
+        <button id="nav-prog" class="w3-bar-item w3-button w3-light-green" onclick="UI.changeTab('prog')">Programming</button>
+        <button id="nav-terminal" class="w3-bar-item w3-button" onclick="UI.changeTab('terminal')">Terminal</button>
+        <button id="nav-files" class="w3-bar-item w3-button" onclick="UI.changeTab('files')">Files</button>
+
+        <!-- Device -->
+        <div class="w3-bar-item w3-right w3-border w3-round-xxlarge my-nav-1" style="background-color: white;">
+            <select class="my-no-border w3-padding-8" style="margin: 0 12px;width: 150px;height: 32px;" name="device">
+                <option value="" disabled selected>Choose device</option>
+                <option value="ESP32">ESP32</option>
+                <option value="ESP8266">ESP8266</option>
+            </select>    
+        </div>
+        <!-- Connection -->
+        <div class="w3-bar-item w3-right w3-border w3-round-xxlarge my-nav-0">
+            <div class="w3-dropdown-click w3-circle">
+                <button class="w3-button w3-circle w3-border my-icon-holder" onclick="UI.toggle('connect-type-panel')">
+                    <span id="connect-type-icon" class="mat-symbols-outlined">usb</span>
+                </button>
+                <div id="connect-type-panel" class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <button class="w3-bar-item w3-button w3-padding-small" onclick="UI.changeConnect('ble')">
+                        <span class="mat-symbols-outlined my-icon">bluetooth</span>
+                        <span>Bluetooth</span>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-padding-small" onclick="UI.changeConnect('serial')">
+                        <span class="mat-symbols-outlined my-icon">cable</span>
+                        <span>Serial</span>
+                    </button>
+                </div>
+            </div>
+            <button class="w3-button w3-circle my-icon-holder" title="Connect to device" onclick="UI.connect()">
+                <span id="btconnect-icon" class="mat-symbols-outlined">power_off</span>
+            </button>
+        </div>
+
+        <!-- Programming language -->
+        <div id="nav-prog-tools" class="w3-bar-item w3-right my-padding-0">
+            <div class="w3-left w3-border w3-round-xxlarge my-nav-0">
+                <button id="code-blockly" class="w3-button w3-circle my-icon-holder w3-border w3-light-green" onclick="toggleCode('blockly')">
+                    <image src="{{ url_for('static', filename='images/blockly_logo.svg') }}" style="width: 24px; height: 24px;">
+                </button>
+                <button id="code-python" class="w3-button w3-circle my-icon-holder w3-grayscale-max" onclick="toggleCode('python')">
+                    <image src="{{ url_for('static', filename='images/python.svg') }}" style="width: 32px; height: 32px;">
+                </button>
+            </div>
+            <div class="my-nav-2 w3-left">
+                <button class="w3-button my-icon-holder">
+                    <span class="mat-symbols-outlined">download</span>
+                </button>
+                <button class="w3-button my-icon-holder">
+                    <span class="mat-symbols-outlined">upload</span>
+                </button>            
+            </div>        
+        </div>
+
+        <!-- Run -->
+         <div id="nav-prog-run" class="w3-bar-item w3-right my-nav-2">
+            <button id="prog-run" class="w3-button w3-circle w3-border my-icon-holder">
+                <span class="mat-symbols-outlined" style="color:green;font-size: 30px;margin: 0 6px 0 0;">play_arrow</span>
+            </button>
+            <button id="prog-run" class="w3-button w3-circle w3-border my-icon-holder">
+                <span class="mat-symbols-outlined" style="color:red;font-size: 30px;margin: 0 6px 0 0;">stop</span>
+            </button>
+         </div>
+    </div>
+    
+    <div id="tab-prog">
+        <div id="canvas-blockly" class="w3-flex main">
+            <div id="blocklyDiv" class="my-panel-right"></div>
+
+            <xml id="toolbox" style="display: none">
+                {% include 'tools_esp32.xml' %}
+            </xml>                
+        </div>
+        <div id="canvas-python" class="w3-flex w3-padding-small main" style="display: none;">
+            <pre class="w3-code notranslate"><code class="language-python"></code></pre>
+        </div>
+    </div>
+    {% include 'tab_terminal.html' %}
+    
+    <!-- Footer -->
+    <footer class="w3-container w3-light-gray">
+        <h6>Created by NCM</h6>
+    </footer>
+
+    <!-- Modals -->
+    {% include 'modal_com_port.html' %}
+
+    <script src="{{ url_for('static', filename='assets/blockly-11.2.2/msg/en.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/blockly.js') }}"></script>
+    <script src="{{ url_for('static', filename='chanels.js') }}"></script>
+    <script src="{{ url_for('static', filename='terminal.js') }}"></script>
+    <script src="{{ url_for('static', filename='ui.js') }}"></script>
+</body>
+</html>

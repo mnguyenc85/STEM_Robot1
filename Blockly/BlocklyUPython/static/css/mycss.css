@@ -1,0 +1,70 @@
+html, body {
+    height: 100%;
+}
+.main {
+    min-height: calc(100vh - 84px);
+    height: calc(100vh - 84px);
+}
+.my-panel-left {
+    width: 250px;
+}
+.my-panel-right {
+    flex: 1;
+}
+
+.my-nav-0 {
+    padding: 0!important;
+    margin: 2px;
+}
+.my-nav-1 {
+    padding: 1px!important;
+    margin: 1px;
+}
+.my-nav-2 {
+    padding: 2px!important;
+    margin: 1px;
+}
+
+/* .my-icon { width: 16px; height: 16px; } */
+.my-icon { vertical-align: middle; }
+
+.my-padding-0 { padding: 0!important; }
+.my-padding-1 { padding: 1px!important; }
+.my-padding-2 { padding: 2px!important; }
+.my-padding-8 { padding: 8px!important; }
+.my-padding-4-10 { padding: 4px 10px!important; }
+.my-padding-4-12 { padding: 4px 12px!important; }
+.my-margin-1 { margin: 1px!important; }
+.my-no-border { border: none; }
+.my-icon-holder { width: 33px; height: 33px; padding: 0!important;}
+.my-icon-holder .mat-symbols-outlined { width: 24px; vertical-align: middle; }
+.my-abs-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#tab-terminal {
+    overflow: scroll;    
+}
+.my-console {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+}
+.my-console pre {
+    margin: 0!important;
+    padding: 0 8px!important;
+}
+.my-console pre.sys {
+    color: red;
+}
+.my-console pre.cmd {
+    color: blue;
+}
+.my-console pre.empty {
+    height: 1em;
+}
+#terminal-cmd {
+    width: 100%;
+}

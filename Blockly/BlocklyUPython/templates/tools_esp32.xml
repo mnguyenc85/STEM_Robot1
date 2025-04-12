@@ -1,0 +1,106 @@
+<category name="Logic" categorystyle="logic_category">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+    <block type="logic_null"></block>
+    <block type="logic_ternary"></block>
+</category>
+<category name="Loops" categorystyle="loop_category">
+    <block type="controls_repeat_ext"></block>
+    <block type="controls_whileUntil"></block>
+    <block type="controls_for"></block>
+    <block type="controls_forEach"></block>
+    <block type="controls_flow_statements"></block>
+</category>
+<category name="Math" categorystyle="math_category">
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block>
+    <block type="math_single"></block>
+    <block type="math_trig"></block>
+</category>
+<category name="Text" colour="%{BKY_TEXTS_HUE}">
+    <block type="text"></block>
+    <block type="text_join"></block>
+    <block type="text_append">
+        <value name="TEXT">
+            <shadow type="text"></shadow>
+        </value>
+    </block>
+    <block type="text_length">
+        <value name="VALUE">
+            <shadow type="text">
+                <field name="TEXT">abc</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="text_isEmpty">
+        <value name="VALUE">
+            <shadow type="text">
+                <field name="TEXT"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="text_indexOf">
+        <value name="VALUE">
+            <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+            </block>
+        </value>
+        <value name="FIND">
+            <shadow type="text">
+                <field name="TEXT">abc</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="text_charAt">
+        <value name="VALUE">
+            <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+            </block>
+        </value>
+    </block>
+    <block type="text_getSubstring">
+        <value name="STRING">
+            <block type="variables_get">
+                <field name="VAR">{textVariable}</field>
+            </block>
+        </value>
+    </block>
+    <block type="text_changeCase">
+        <value name="TEXT">
+            <shadow type="text">
+                <field name="TEXT">abc</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="text_trim">
+        <value name="TEXT">
+            <shadow type="text">
+                <field name="TEXT">abc</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="text_print">
+        <value name="TEXT">
+            <shadow type="text">
+                <field name="TEXT">abc</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="text_prompt_ext">
+        <value name="TEXT">
+            <shadow type="text">
+                <field name="TEXT">abc</field>
+            </shadow>
+        </value>
+    </block>
+</category>
+
+<sep></sep>
+<category name="Variables" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+
+<category name="Custom Blocks" colour="160">
+    <block type="print_text_1"></block>
+</category>
