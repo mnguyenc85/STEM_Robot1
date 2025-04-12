@@ -19,6 +19,18 @@ UI.connect = async function() {
     }
 }
 
+UI.runPython = async function() {
+    let code = Blockly.Python.workspaceToCode(workspace);
+    Terminal.addLine('Run blockly', 'sys');
+    Chanels.runPython(code);
+}
+
+UI.stopPython = function() {
+    Chanels.stopPython(() => {
+        Terminal.addLine('Stop python', 'sys');
+    });
+}
+
 /**
  * Change connection type
  * @param {string} t ble | serial | (wifi)
@@ -69,7 +81,7 @@ UI.changeTab = function(tab) {
  * @param {string} id id of element
  */
 UI.toggle = function(id) {
-    var e = document.getElementById(id);
+    let e = document.getElementById(id);
     if (e.className.indexOf("w3-show") == -1) {
         e.className += ' w3-show';
     } else {
@@ -87,7 +99,7 @@ function toggleCode(code) {
     const eCanvasBlockly = document.getElementById("canvas-blockly");
     const eCanvasPython = document.getElementById("canvas-python");
     
-    var eOn, eOff;
+    let eOn, eOff;
     if (code == 'blockly') {
         eOn = eCodeBlockly;
         eOff = eCodePython;
@@ -108,7 +120,7 @@ function toggleCode(code) {
     eOff.classList.remove("w3-light-green");
 
     if (code == 'python') {                
-        var code = Blockly.Python.workspaceToCode(workspace);
+        let code = Blockly.Python.workspaceToCode(workspace);
         const codeElement = eCanvasPython.querySelector(".w3-code code");
         const highlightedCode = hljs.highlight(
             code,

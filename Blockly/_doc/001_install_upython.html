@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>uPython</title>
+	<link rel="stylesheet" href="css/w3.css">
 </head>
 <body>
 	<div class="w3-container">
@@ -16,8 +17,55 @@
 		<p>Cài đặt:
 			<li>Vào Run (menu) -> Configure interpreter... </li>
 			<li>Chọn 'Install or update microPython (esptool)</li>
-			
+			<li>Chọn tham số</li>
+			<li>MicroPython image: online hoặc offline bằng image tải từ micropython.org</li>
+			<li><i>Chú ý: Với ESP8266, cần chọn <span style="color:red;">flash mode: dio, flash size: detect</span></i></li>
 		</p>
+		
+		<h2>II. Bật wifi</h2>
+		<p>* Có thể sai</p>
+		<li>Sửa file boot.py như sau: thay địa chỉ, pw wifi</li>
+		<pre class="w3-code notranslate">
+# This file is executed on every boot (including wake-boot from deepsleep)
+#import esp
+#esp.osdebug(None)
+import os, machine
+#os.dupterm(None, 1) # disable REPL on UART(0)
+import gc
+import network
+import time
+import webrepl
+
+def wifi_connect(ssid, pw):
+	wait_time = 0
+	wlan = network.WLAN(network.STA_IF)
+	wlan.active(True)
+	wlan.connect(ssid, pw)
+	while not wlan.isconnected():
+		time.sleep_ms(100)
+		wait_time += 100
+		if wait_time > 10000: return False
+	return True
+
+if wifi_connect("WIFI_ADDR", "WIFI_PW"):
+	#import webrepl_setup
+	webrepl.start()
+
+gc.collect()</pre>
+		<li>Ở shell nhập:<pre>import webrepl_setup</pre></li>
+		<li>Khởi động lại bằng cách nhập:<pre>import boot</pre></li>
+		
+		<h2>III. Bật Bluetooth LE</h2>
+		<h3>Sử dụng phần mềm Viper-IDE</h3>
+		<p>Link: <a href="https://viper-ide.org/"></a></p>
+		<li>Kết nối board qua Serial</li>
+		<li>Trên Viper-IDE: Chọn Package Manager 📦 (góc trái dưới)</li>
+		<li>Cài đặt viper-tools</li>
+		<li>Thêm file main.py với code như sau:</li>
+		<pre class="w3-code notranslate">
+import ble_repl
+ble_repl.start()</pre>
+		<li><i style="color:red;">Chú ý: module bluetooth này sẽ chặn webrepl</i></li>
 	</div>
 </body>
 </html>

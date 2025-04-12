@@ -43,3 +43,6 @@ build/
 dist/
 out/
 coverage/
+
+# Thư mục riêng
+zprivate/

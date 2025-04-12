@@ -47,6 +47,7 @@ Terminal.addLine = function(msg, classes='') {
         if (i < n - 1) curLine = null;
     }
     if (!endl) this._eLastLine = curLine;
+    else this._eLastLine = null;
 
     this._eTerminal.scrollTop = this._eTerminal.scrollHeight;
 }

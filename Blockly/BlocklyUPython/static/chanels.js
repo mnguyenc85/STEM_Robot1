@@ -50,9 +50,22 @@ Chanels.sendCommand = async function(data, cb) {
     await this.send(data, cb);
 }
 
+Chanels.runPython = async function(code, cb) {
+    if (this.isConnecting != null) {
+        data = `\x05${code}\x04`;
+        await this.send(data, cb);
+    } else {
+        Terminal.addLine('Not connect to device', 'sys');
+    }
+}
+
 Chanels.stopPython = async function(cb) {
-    data = '\x03\x03';
-    await this.send(data, cb);
+    if (this.isConnecting != null) {
+        data = '\x03\x03';
+        await this.send(data, cb);
+    } else {
+        Terminal.addLine('Not connect to device', 'sys');
+    }
 }
 
 Chanels._BLEConnect = async function() {

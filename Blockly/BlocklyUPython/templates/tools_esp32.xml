@@ -100,6 +100,16 @@
 
 <sep></sep>
 <category name="Variables" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+<category name="Timing">
+    <label text="Timing"></label>
+    <block type="delay">
+        <value name="TIME">
+            <shadow type="math_number">
+                <field name="NUM">1</field>
+            </shadow>
+        </value>
+    </block>
+</category>
 
 <category name="Custom Blocks" colour="160">
     <block type="print_text_1"></block>

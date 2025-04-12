@@ -12,6 +12,12 @@
     <script src="{{ url_for('static', filename='assets/blockly-11.2.2/blockly_compressed.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/blockly-11.2.2/blocks_compressed.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/blockly-11.2.2/python_compressed.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='assets/blockly-11.2.2/msg/en.js') }}"></script>    
+    <script src="{{ url_for('static', filename='blockly/msg/en.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='blockly/timer_blocks.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/timer_generators.js') }}"></script>
     <script src="{{ url_for('static', filename='blockly/custom_blocks.js') }}"></script>
     <script src="{{ url_for('static', filename='blockly/custom_generators.js') }}"></script>
 
@@ -79,10 +85,10 @@
 
         <!-- Run -->
          <div id="nav-prog-run" class="w3-bar-item w3-right my-nav-2">
-            <button id="prog-run" class="w3-button w3-circle w3-border my-icon-holder">
+            <button id="prog-run" class="w3-button w3-circle w3-border my-icon-holder" onclick="UI.runPython()">
                 <span class="mat-symbols-outlined" style="color:green;font-size: 30px;margin: 0 6px 0 0;">play_arrow</span>
             </button>
-            <button id="prog-run" class="w3-button w3-circle w3-border my-icon-holder">
+            <button id="prog-run" class="w3-button w3-circle w3-border my-icon-holder" onclick="UI.stopPython()">
                 <span class="mat-symbols-outlined" style="color:red;font-size: 30px;margin: 0 6px 0 0;">stop</span>
             </button>
          </div>
@@ -110,7 +116,6 @@
     <!-- Modals -->
     {% include 'modal_com_port.html' %}
 
-    <script src="{{ url_for('static', filename='assets/blockly-11.2.2/msg/en.js') }}"></script>
     <script src="{{ url_for('static', filename='blockly/blockly.js') }}"></script>
     <script src="{{ url_for('static', filename='chanels.js') }}"></script>
     <script src="{{ url_for('static', filename='terminal.js') }}"></script>

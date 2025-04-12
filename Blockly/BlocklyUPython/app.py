@@ -23,4 +23,4 @@ def execute():
     return jsonify({"output": output})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True, ssl_context=('server.crt', 'server.key'))
+    app.run(host="0.0.0.0", debug=True, ssl_context=('zprivate/server.crt', 'zprivate/server.key'))
