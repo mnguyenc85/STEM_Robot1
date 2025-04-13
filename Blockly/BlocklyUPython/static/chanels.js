@@ -55,7 +55,7 @@ Chanels.runPython = async function(code, cb) {
         data = `\x05${code}\x04`;
         await this.send(data, cb);
     } else {
-        Terminal.addLine('Not connect to device', 'sys');
+        Terminal.addLine('\nNot connect to device\n', 'err');
     }
 }
 
@@ -64,13 +64,13 @@ Chanels.stopPython = async function(cb) {
         data = '\x03\x03';
         await this.send(data, cb);
     } else {
-        Terminal.addLine('Not connect to device', 'sys');
+        Terminal.addLine('\nNot connect to device\n', 'err');
     }
 }
 
 Chanels._BLEConnect = async function() {
     try {
-        if (typeof navigator.bluetooth == "undefined") Terminal.addLine("WebBluetooth API doesn't available\n");
+        if (typeof navigator.bluetooth == "undefined") Terminal.addLine("\nWebBluetooth API doesn't available\n", 'err');
 
         const device = await navigator.bluetooth.requestDevice({
             //filters: [{services: []}]
@@ -95,7 +95,7 @@ Chanels._BLEConnect = async function() {
         this.isConnecting = 'ble';
     }
     catch (err) {
-        Terminal.addLine(`${err}`, 'sys');
+        Terminal.addLine(`\n${err}\n`, 'err');
     }
 }
 
@@ -103,16 +103,16 @@ Chanels._BLEDisconnect = async function() {
     if (this._BLE_device && this._BLE_device.gatt.connected) {
         await this._BLE_device.gatt.disconnect();
         Terminal.addLine('\nDisconnected from BLE\n', 'sys');
-        this.isConnecting = null;
     }
     else {
-        Terminal.addLine('\nNo device to disconnect\n', 'sys');
+        Terminal.addLine('\nNo device to disconnect\n', 'err');
     }
+    this.isConnecting = null;
 }
 
 Chanels._BLESend = async function(data, cb) {
     if (!this._BLE_writeChar) {
-        console.log('\nDevice not connected yet\n');
+        Terminal.addLine('\nDevice not connected yet\n', 'sys');
         return false;
     }
 
@@ -141,7 +141,7 @@ Chanels._serialConnect = async function() {
     } catch (err) {
         this.isConnecting = null;
 
-        Terminal.addLine(`${err}`, 'sys');
+        Terminal.addLine(`\n${err}\n`, 'err');
     }
 }
 
@@ -185,7 +185,7 @@ Chanels._readLoop = async function() {
             }
             await this._delay(50);
         } catch (err) {
-            console.error("Read error:", err);
+            Terminal.addLine(`Serial read: ${err}`, 'err');
             break;
         }
     }

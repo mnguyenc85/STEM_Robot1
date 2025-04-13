@@ -57,14 +57,26 @@ html, body {
     padding: 0 8px!important;
 }
 .my-console pre.sys {
-    color: red;
+    color: green;
+    font-style: italic;
+    font-weight: bold;
 }
 .my-console pre.cmd {
     color: blue;
+    font-style: italic;
+}
+.my-console pre.err {
+    color: red;
+    font-style: italic;
+    font-weight: bold;
 }
 .my-console pre.empty {
     height: 1em;
 }
 #terminal-cmd {
     width: 100%;
+}
+
+.my-blink-color {
+    color: lightseagreen;
 }

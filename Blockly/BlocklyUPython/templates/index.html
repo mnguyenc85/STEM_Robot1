@@ -18,6 +18,8 @@
 
     <script src="{{ url_for('static', filename='blockly/timer_blocks.js') }}"></script>
     <script src="{{ url_for('static', filename='blockly/timer_generators.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/math_blocks.js') }}"></script>
+    <script src="{{ url_for('static', filename='blockly/math_generators.js') }}"></script>
     <script src="{{ url_for('static', filename='blockly/custom_blocks.js') }}"></script>
     <script src="{{ url_for('static', filename='blockly/custom_generators.js') }}"></script>
 
@@ -74,12 +76,13 @@
                 </button>
             </div>
             <div class="my-nav-2 w3-left">
-                <button class="w3-button my-icon-holder">
+                <button class="w3-button my-icon-holder" onclick="UI.saveWorkspaceToFile()">
                     <span class="mat-symbols-outlined">download</span>
                 </button>
-                <button class="w3-button my-icon-holder">
+                <button class="w3-button my-icon-holder" onclick="UI.triggerFileLoad('xmlFileInput')">
                     <span class="mat-symbols-outlined">upload</span>
-                </button>            
+                </button>
+                <input type="file" id="xmlFileInput" accept=".xml" style="display: none;" onchange="UI.loadWorkspaceFromFile(event)"/>     
             </div>        
         </div>
 
@@ -99,7 +102,7 @@
             <div id="blocklyDiv" class="my-panel-right"></div>
 
             <xml id="toolbox" style="display: none">
-                {% include 'tools_esp32.xml' %}
+                {% include 'tools_esp32.html' %}
             </xml>                
         </div>
         <div id="canvas-python" class="w3-flex w3-padding-small main" style="display: none;">
